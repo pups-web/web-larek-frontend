@@ -1,3 +1,5 @@
+import { ProductsList } from '../../types/index';
+
 export type ApiListResponse<Type> = {
     total: number,
     items: Type[]
@@ -11,6 +13,7 @@ export class Api {
 
     constructor(baseUrl: string, options: RequestInit = {}) {
         this.baseUrl = baseUrl;
+        console.log('Base URL:', this.baseUrl)
         this.options = {
             headers: {
                 'Content-Type': 'application/json',
@@ -38,5 +41,8 @@ export class Api {
             method,
             body: JSON.stringify(data)
         }).then(this.handleResponse);
+    }
+    getProduct(): Promise<ApiListResponse<ProductsList>> {
+        return this.get('/product') as Promise<ApiListResponse<ProductsList>>;
     }
 }
